@@ -12,6 +12,12 @@ export const resolvers = {
                 title: 'The title 2',
                 description: 'The description 2'
                 },
+                {
+                    id: 'test-id3',
+                    title: 'The title 3',
+                    description: 'The description 3'
+                    },
+
         ]
         },
         greeting:() => 'Hello World'
