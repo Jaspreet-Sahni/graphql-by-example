@@ -1,25 +1,33 @@
-export const resolvers = {
-    Query :{
-        jobs: ()=>{
-            return [
-                {
-                id: 'test-id1',
-                title: 'The title 1',
-                description: 'The description 1'
-                },
-                {
-                id: 'test-id2',
-                title: 'The title 2',
-                description: 'The description 2'
-                },
-                {
-                    id: 'test-id3',
-                    title: 'The title 3',
-                    description: 'The description 3'
-                    },
+// import { connection } from './connection.js';
+import { getJobs } from './db/jobs.js'
+import {getCompany} from './db/companies.js'
 
-        ]
+export const resolvers = {
+   
+    Query :{
+        // greeting:() => 'Hello World'
+        jobs: () => {
+            return  getJobs(); 
+        },    
+    },
+
+    Job: {
+        // to see the harcoded retun uncomment below code
+        // company: () =>{
+        //     return {
+        //         id:'test-id',
+        //         name:'facebook',
+        //         description: 'Good company'
+        //     }
+        // },
+        company : (ele) =>{
+            return getCompany(ele.companyId)
         },
-        greeting:() => 'Hello World'
+        date: (jobele) => {
+            
+            console.log('jobbbss', jobele);
+            //return "10-09-2015"
+            return jobele.createdAt
+        } 
     }
 }
