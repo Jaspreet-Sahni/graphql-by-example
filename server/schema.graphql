@@ -1,12 +1,18 @@
 type Query {
-    greeting: String
+    greeting: [Job1]!
+    job(id: ID!): Job  # Query with an argument
     jobs: [Job]
+    company(id:ID!): Company #Query with an argument   
 }
 
+type Job1 {
+    name: String
+}
 type Company {
     id: ID!
     name: String
     description: String
+    jobs: [Job!]!
 }
 type Job {
     id:ID
