@@ -4,6 +4,14 @@ type Query {
     jobs: [Job]
     company(id:ID!): Company #Query with an argument   
 }
+# to write to databse in graphql we use Mutation
+type Mutation {
+    # way1 to send input variables in graphql
+    # createJobM(title: String! , description: String): Job 
+    
+    # way2 to send input variables in graphql
+    createJobM(input: CreateJobInput!): Job
+}
 
 type Job1 {
     name: String
@@ -24,4 +32,9 @@ type Job {
     description: String
 
     company: Company!
+}
+
+input CreateJobInput {
+    title: String!
+    description: String
 }
