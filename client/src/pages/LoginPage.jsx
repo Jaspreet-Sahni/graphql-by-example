@@ -9,6 +9,7 @@ function LoginPage({ onLogin }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(false);
+    debugger
     const user = await login(email, password);
     if (user) {
       onLogin(user);

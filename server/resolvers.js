@@ -1,5 +1,5 @@
 // import { connection } from './connection.js';
-import { getJobs , getJob, getJobsByCompany, createJob} from './db/jobs.js'
+import { getJobs , getJob, getJobsByCompany, createJob, deleteJob, updateJob} from './db/jobs.js'
 import {getCompany} from './db/companies.js'
 import { GraphQLError } from 'graphql'
 export const resolvers = {
@@ -36,6 +36,12 @@ export const resolvers = {
         createJobM: (_root,{input: {title, description}}) => {
             const companyId= "FjcJCHJALA4i"; //TODO setbased on user
            return createJob({companyId, title, description})
+        },
+        deleteJobM: (_root, {id}) =>{
+            return deleteJob(id)
+        },
+        updateJobM :(_root, {input :{id,title,description}}) =>{
+            return updateJob({id, title, description})
         }
     },
     Company: {

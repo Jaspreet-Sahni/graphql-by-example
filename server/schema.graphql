@@ -11,6 +11,8 @@ type Mutation {
     
     # way2 to send input variables in graphql
     createJobM(input: CreateJobInput!): Job
+    deleteJobM(id: ID!): Job
+    updateJobM(input: UpdateJobInput!):Job
 }
 
 type Job1 {
@@ -37,4 +39,10 @@ type Job {
 input CreateJobInput {
     title: String!
     description: String
+}
+
+input UpdateJobInput {
+    id:ID!
+    title:String!
+    description:String
 }

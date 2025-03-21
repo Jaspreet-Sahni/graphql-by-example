@@ -3,7 +3,6 @@ import { GraphQLClient, gql } from 'graphql-request';
 const client = new GraphQLClient('http://localhost:9000/graphql')
 
 export async function getJobById(idVal) {
-    
     console.log('passed idVal',idVal)
     const queryGetJobById =gql `           
         query JobById ($idVal:ID!){
@@ -60,5 +59,27 @@ export async function getCompany(companyId) {
     const {company} = await client.request(queryGetbyCompanyId,{companyId})
     //console.log('data',data)
      return company
+}
+
+export async function createJobM({title, description}) {
+    const mutations = gql`
+    mutation createJobNew($input: CreateJobInput!) {
+  joob: createJobM(input: $input) {
+    id
+    title
+    description
+    date
+    company {
+      id
+      name
+    }
+  }
+}
+    `
+    const data = await client.request(mutations, {
+        input: {title, description}
+    });
+    return data.joob;
+    
 }
 

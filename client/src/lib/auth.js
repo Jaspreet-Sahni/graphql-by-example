@@ -12,6 +12,7 @@ export function getAccessToken() {
 }
 
 export async function login(email, password) {
+  debugger;
   const response = await fetch(`${API_URL}/login`, {
     method: 'POST',
     headers: {
