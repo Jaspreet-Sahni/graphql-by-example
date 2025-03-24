@@ -3,7 +3,7 @@ import { getAccessToken } from '../auth';
 
 const client = new GraphQLClient('http://localhost:9000/graphql',{
     headers: () =>{
-        const accessToken = getContext();
+        const accessToken = getAccessToken();
         if(accessToken){
             return {'Authorization' :  `Bearer ${accessToken}`}
         }
