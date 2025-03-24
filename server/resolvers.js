@@ -10,7 +10,7 @@ export const resolvers = {
         job: (_root, {id}) => {
           //  console.log('[Query.job] args:', args)
           // console.log("_root", _root); // undefined in this case
-           console.log('[Query.job] id:', id)
+          // console.log('[Query.job] id:', id)
          return getJob(id)
         },
         
@@ -33,9 +33,25 @@ export const resolvers = {
         // way1 of createJobM
         // createJobM: (_root, {title, description}) => {
         // way2 of passing value to CreateJobM
-        createJobM: (_root,{input: {title, description}}) => {
-            const companyId= "FjcJCHJALA4i"; //TODO setbased on user
-           return createJob({companyId, title, description})
+        // createJobM: (_root,{input: {title, description}}, {auth}) => {
+        //     console.log("step 2 ,context Job", auth);
+        //    if(!auth){
+        //      // to throw custom error msg and custom error code we use GraphQLError
+        //     throw unAuthorizedError("you are not authorized to login")
+        //    }
+        //     const companyId= "FjcJCHJALA4i"; //TODO setbased on user
+        //     return createJob({companyId, title, description})
+        // },
+
+        // way3 of passing value to createJobM function
+        createJobM: (_root,{input: {title, description}}, {user}) => {
+            console.log("step 2 ,user Job", user);
+           if(!user){
+             // to throw custom error msg and custom error code we use GraphQLError
+            throw unAuthorizedError("you are not authorized to login")
+           }
+            
+             return createJob({companyId: user.companyId, title, description})
         },
         deleteJobM: (_root, {id}) =>{
             return deleteJob(id)
@@ -61,17 +77,21 @@ export const resolvers = {
         // },
         date: (jobele) => {
             
-            console.log('jobbbss', jobele);
+          //  console.log('jobbbss', jobele);
             //return "10-09-2015"
             return jobele.createdAt
         },
         company : (ele) =>{
-            console.log('ele', ele)
+           // console.log('ele', ele)
             return getCompany(ele.companyId)
         }
          
     }
-    
-    
-    
+       
+}
+
+function unAuthorizedError(message) {
+    return new GraphQLError(message, {
+        extensions: {code : 'UNAUTHORIZED'}
+    })
 }

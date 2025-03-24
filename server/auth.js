@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { getUserByEmail } from './db/users.js';
 
 const secret = Buffer.from('Zn8Q5tyZ/G1MHltc4F/gTkVJMlrbKiZt', 'base64');
-
+console.log('secret ---', secret)
 export const authMiddleware = expressjwt({
   algorithms: ['HS256'],
   credentialsRequired: false,
